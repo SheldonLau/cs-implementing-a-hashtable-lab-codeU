@@ -5,7 +5,7 @@ package com.flatironschool.javacs;
 
 import java.util.List;
 import java.util.Map;
-
+import java.util.ArrayList;
 /**
  * Implementation of a HashMap using a collection of MyLinearMap and
  * resizing when there are too many entries.
@@ -40,8 +40,14 @@ public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
 	 * 
 	 */
 	protected void rehash() {
-        // TODO: fill this in.
-        throw new UnsupportedOperationException();
+    List<MyLinearMap<K,V>> tempMaps = maps;
+    makeMaps(maps.size()*2);
+
+    for(MyLinearMap<K, V> map : tempMaps) {
+      for(Map.Entry<K, V> entry : map.getEntries()) {
+        put(entry.getKey(), entry.getValue());
+      }
+    }
 	}
 
 	/**
